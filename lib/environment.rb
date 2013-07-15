@@ -32,20 +32,18 @@ Example usage:
   host = ENV['HOSTNAME'] #yourdomain.com
 =end
 module Environment
-  CURRENT_DIR = File.dirname(__FILE__)
-  VARIABLE_DUMP = "/tmp/.environment_variables_#{Process.pid}"
-  SHELL_SCRIPT = "#{CURRENT_DIR}/save_environment_variables.sh #{VARIABLE_DUMP}"
+  
   @env = {}
   
   def self.load
-    success = system("bash -l #{SHELL_SCRIPT}")
-    if success && File.exists?(VARIABLE_DUMP)
-      File.read(VARIABLE_DUMP).each_line do |line|
-        key,value = line.chomp.split("=")
+    env_vars = `/bin/bash -lc /usr/bin/env`
+    env_vars = env_vars.split("\n")
+    if env_vars
+      env_vars.each do |v|
+        key,value = v.chomp.split("=")
         @env[key] = value
       end
-      File.delete(VARIABLE_DUMP)
-    end
+    end 
   end
   
   def self.get(key)
@@ -54,6 +52,10 @@ module Environment
   
   def self.[](key)
     return @env[key]
+  end
+
+  def self.to_a
+     return @env.to_a
   end
   
   def self.override!
