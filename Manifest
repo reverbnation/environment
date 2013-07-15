@@ -1,0 +1,7 @@
+CHANGELOG.rdoc
+Manifest
+README.rdoc
+Rakefile
+environment.gemspec
+lib/environment.rb
+lib/save_environment_variables.sh

@@ -1,0 +1,21 @@
+= Changelog
+
+== Release 0.2.1 - April 22, 2011
+
+* FIX: All environment variables had a trailing /n
+
+== Release 0.2.0 - April 22, 2011
+
+* NEW: Added method override to override the default ENV object
+
+== Release 0.1.2 - April 21, 2011
+
+* FIX: Store environment variable in /tmp
+
+== Release 0.1.1 - April 21, 2011
+
+* FIX: Environment file spelling
+
+== Release 0.1.0 - April 21, 2011
+
+* Initial release
