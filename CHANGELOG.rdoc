@@ -1,5 +1,14 @@
 = Changelog
 
+== Release 0.2.3 - July 17, 2013
+
+* Assume anything that started with  \^SEC_\ is secret and purge from regular ENV.  
+
+== Release 0.2.2 - July 15, 2013
+
+* Fork from origional
+* Don't store vars in /tmp file.  Directly suck them into memory.
+
 == Release 0.2.1 - April 22, 2011
 
 * FIX: All environment variables had a trailing /n

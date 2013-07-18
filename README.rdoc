@@ -1,6 +1,10 @@
 = Environment
 
-Environment variables in are not available to scripts running as crons and/or services. This gem allows ruby scripts running as a cron and/or as a service full access to the system environment variables.
+Depending on how you start a Ruby process, it may not pick up all of the Bash Env Vars.
+To rectify this, This gem fires up a full login shell and sucks out all of the vars.
+
+This Gem also purges standard ENV of any Env Vars that start with SEC_
+This was added to prevent some debugging tools from leaking secure env vars.
 
 == Installation
 
@@ -8,7 +12,9 @@ Environment variables in are not available to scripts running as crons and/or se
 
 == Usage
 
-The global constant ENV is left untouched by default. To read an environment variable, use Environment.get or Environment[].
+The global constant ENV is mostly left untouched by default. 
+The global ENV will be purged of anything matching \^SEC_\.
+To read an environment variable, use Environment.get or Environment[].
 
 Example usage:
 
@@ -18,8 +24,12 @@ Example usage:
   # the following two are the same
   path = Environment['PATH']
   home = Environment.get('HOME')
+
+
+  Environment.to_a
   
 If you want to override the default ENV constant, use the override! method
+##Warning, this can be full of suprises with some ruby products
 
 Example usage:
 
