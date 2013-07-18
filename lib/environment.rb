@@ -55,7 +55,7 @@ module Environment
   end
 
   #Clean vars flagged as sensitive from ENV
-  def clean_secrets_from_env()
+  def self.clean_secrets_from_env()
     ENV.delete_if{ |k,v| k =~ /^SEC_/ }
   end
 
