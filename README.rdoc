@@ -1,10 +1,16 @@
 = Environment
 
 Depending on how you start a Ruby process, it may not pick up all of the Bash Env Vars.
-To rectify this, This gem fires up a full login shell and sucks out all of the vars.
+To rectify this, This gem employs two mechanisms.
+First if tries to load some code from a .env file in the process root dir.
+Then it fires up a full login shell and sucks out all of the vars.
+
+The final authority is the login shell variables.  They will override any conflicts stemming from .env files.
 
 This Gem also purges standard ENV of any Env Vars that start with SEC_
 This was added to prevent some debugging tools from leaking secure env vars.
+
+Some code was borrowed from teh dotenv gem project.
 
 == Installation
 

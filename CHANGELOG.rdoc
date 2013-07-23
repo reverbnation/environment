@@ -1,5 +1,9 @@
 = Changelog
 
+== Release 0.2.4 - July 23, 2013
+
+* Borrow some code from dotenv to load a .env file as the defualt variables.  Its a rough implementation.
+
 == Release 0.2.3 - July 17, 2013
 
 * Assume anything that started with  \^SEC_\ is secret and purge from regular ENV.  
