@@ -92,7 +92,7 @@ module Environment
       key, value = match.captures
       set_env(key, value)
     elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
-      raise FormatError, "Line #{line.inspect} doesn't match format"
+      puts "Line #{line.inspect} does not match expected format VAR=val.  Probably missing a value."
     end
   end
 
