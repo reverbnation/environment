@@ -76,7 +76,7 @@ module Environment
     if env_vars
       env_vars.each do |v|
         key,value = v.chomp.split("=")
-        @env[key] = value.strip.sub(/\A(['"])(.*)\1\z/, '\2') #remove quotes surrounding value if present
+        set_env(key, value)
       end
     end 
     clean_secrets_from_env()
@@ -85,6 +85,14 @@ module Environment
   #Clean vars flagged as sensitive from ENV
   def self.clean_secrets_from_env()
     ENV.delete_if{ |k,v| k =~ /^SEC_/ }
+  end
+
+  # strip quotes and newlines then set in @env
+  def self.set_env(key, value)
+    return if key.nil? || value.nil?
+    value = value.strip.sub(/\A(['"])(.*)\1\z/, '\2') #remove quotes surrounding value if present
+    value = value.gsub('\n', "\n").gsub(/\\(.)/, '\1') if $1 == '"'
+    @env[key] = value
   end
 
 
@@ -96,9 +104,7 @@ module Environment
         read(file).each do |line|
           if match = line.match(LINE)
             key, value = match.captures
-            value = value.strip.sub(/\A(['"])(.*)\1\z/, '\2') #remove quotes surrounding value if present
-            value = value.gsub('\n', "\n").gsub(/\\(.)/, '\1') if $1 == '"'
-            @env[key] = value
+            set_env(key, value)
           elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
             raise FormatError, "Line #{line.inspect} doesn't match format"
           end
