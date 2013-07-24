@@ -76,7 +76,7 @@ module Environment
     if env_vars
       env_vars.each do |v|
         key,value = v.chomp.split("=")
-        @env[key] = value
+        @env[key] = value.strip.sub(/\A(['"])(.*)\1\z/, '\2') #remove quotes surrounding value if present
       end
     end 
     clean_secrets_from_env()
@@ -96,7 +96,7 @@ module Environment
         read(file).each do |line|
           if match = line.match(LINE)
             key, value = match.captures
-            value = value.strip.sub(/\A(['"])(.*)\1\z/, '\2')
+            value = value.strip.sub(/\A(['"])(.*)\1\z/, '\2') #remove quotes surrounding value if present
             value = value.gsub('\n', "\n").gsub(/\\(.)/, '\1') if $1 == '"'
             @env[key] = value
           elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
