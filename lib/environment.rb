@@ -74,9 +74,8 @@ module Environment
     env_vars = `/bin/bash -lc /usr/bin/env`
     env_vars = env_vars.split("\n")
     if env_vars
-      env_vars.each do |v|
-        key,value = v.chomp.split("=")
-        set_env(key, value)
+      env_vars.each do |line|
+        process_line(line)
       end
     end 
     clean_secrets_from_env()
@@ -85,6 +84,16 @@ module Environment
   #Clean vars flagged as sensitive from ENV
   def self.clean_secrets_from_env()
     ENV.delete_if{ |k,v| k =~ /^SEC_/ }
+  end
+
+  #attempt to match entire line to 'LINE' regex
+  def self.process_line(line)
+    if match = line.match(LINE)
+      key, value = match.captures
+      set_env(key, value)
+    elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
+      raise FormatError, "Line #{line.inspect} doesn't match format"
+    end
   end
 
   # strip quotes and newlines then set in @env
@@ -102,12 +111,7 @@ module Environment
     if files.size > 0 then
       files.each do |file|
         read(file).each do |line|
-          if match = line.match(LINE)
-            key, value = match.captures
-            set_env(key, value)
-          elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
-            raise FormatError, "Line #{line.inspect} doesn't match format"
-          end
+          process_line(line)
         end
       end
     end
