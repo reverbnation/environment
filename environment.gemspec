@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 Gem::Specification.new do |s|
   s.name = 'environment'
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email = 'awatts@reverbnation.com'
   s.extra_rdoc_files = ['CHANGELOG.rdoc', 'README.rdoc', 'lib/environment.rb']
   s.files = ['CHANGELOG.rdoc', 'Manifest', 'README.rdoc', 'Rakefile', 'environment.gemspec', 'lib/environment.rb']
-  s.homepage = 'https://github.com/abruehl/environment'
+  s.homepage = 'https://github.com/reverbnation/environment'
   s.rdoc_options = ['--line-numbers', '--inline-source', '--title', 'Environment', '--main', 'README.rdoc']
   s.require_paths = ['lib']
   s.rubyforge_project = 'environment'
@@ -24,4 +24,6 @@ Gem::Specification.new do |s|
     standard ENV of any Env Vars that start with SEC_. This was added to prevent
     some debugging tools from leaking secure env vars.'
   _TEXT
+
+  s.add_development_dependency 'bundler'
 end
