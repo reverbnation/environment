@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'environment'
-  s.version = '0.2.5'
+  s.version = '0.2.6'
 
   s.required_ruby_version = '>= 2.7'
   s.required_rubygems_version = '>= 3.1'
