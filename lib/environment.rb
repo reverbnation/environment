@@ -101,7 +101,7 @@ module Environment
 
   # adapted from dotenv gem
   def self.load_env_file
-    Dir.glob('*.env').each do |file|
+    Dir.glob('*.env').sort.each do |file|
       read(file).each do |line|
         process_line(line)
       end
