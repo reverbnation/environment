@@ -1,5 +1,22 @@
 = Changelog
 
+== Relase 0.3.1 - September 16, 2021
+
+* Merge changes from 0.2.6 and 0.2.6 into 0.3.0.
+
+== Release 0.3.0 - September 16, 2021
+
+* Load the .env files in lexicographical order.
+* Make a bunch of changes suggested by Rubocop lints.
+
+== Release 0.2.7 - July 25, 2013
+
+* Silence some debugging lines.
+
+== Release 0.2.6 - July 24, 2013
+
+* (unknown)
+
 == Release 0.2.5 - July 24, 2013
 
 * Handle empty key or value when loading environment variables
