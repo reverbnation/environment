@@ -91,8 +91,14 @@ module Environment
     if match = line.match(LINE)
       key, value = match.captures
       set_env(key, value)
+      if ENV['DEBUG'] then
+        puts "Appending #{line} as #{key} => #{value}"
+      end
     elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
-      puts "Line #{line.inspect} does not match expected format VAR=val.  Probably missing a value."
+      #noop to avoid issues unless in debugging mode
+      if ENV['DEBUG'] then
+        puts "Line #{line.inspect} does not match expected format VAR=val.  Probably missing a value."
+      end
     end
   end
 
